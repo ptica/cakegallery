@@ -31,12 +31,12 @@
                 ?>
 
                 <?php
-                $config_path = App::pluginPath('Gallery') . 'Config';
+                $config_path = APP . 'Config';
                 if (!is_writable($config_path)) {
                     ?>
                     <div class="alert alert-danger">
                         <i class="fa fa-times"></i>
-                        Your app/Plugin/Gallery/Config folder isn't writable
+                        Your app/Config folder isn't writable
                     </div>
                     <?php $errors++; ?>
                 <?php

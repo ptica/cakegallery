@@ -95,7 +95,7 @@ class InstallController extends GalleryAppController
      */
     private function _createConfigFile()
     {
-        $destinationPath = App::pluginPath('Gallery') . 'config' . DS . 'config.php';
+        $destinationPath = APP . 'Config' . DS . 'gallery.php';
 
         if (!file_exists($destinationPath)) {
             $configFile = new File(App::pluginPath('Gallery') . 'config' . DS . 'config.php.install');
@@ -103,4 +103,4 @@ class InstallController extends GalleryAppController
             $configFile->copy($destinationPath);
         }
     }
-} 
+}

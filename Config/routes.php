@@ -1,6 +1,5 @@
 <?php
-
-if (!file_exists(App::pluginPath('Gallery') . 'Config' . DS . 'config.php')) {
+if (!file_exists(APP . 'Config' . DS . 'gallery.php')) {
     Router::connect(
         '/gallery',
         array(

@@ -29,7 +29,7 @@ class GalleryAppController extends AppController
      */
     private function _checkConfigFile()
     {
-        return !!file_exists(App::pluginPath('Gallery') . 'Config' . DS . 'config.php');
+        return !!file_exists(APP . 'Config' . DS . 'gallery.php');
     }
 
 }
