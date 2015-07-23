@@ -10,14 +10,7 @@ class UtilComponent extends Component
 
     public function getToken($length = 32)
     {
-        $token = "";
-        $codeAlphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        $codeAlphabet .= "abcdefghijklmnopqrstuvwxyz";
-        $codeAlphabet .= "0123456789";
-        for ($i = 0; $i < $length; $i++) {
-            $token .= $codeAlphabet[$this->crypto_rand_secure(0, strlen($codeAlphabet))];
-        }
-        return $token;
+        return substr(md5(uniqid(mt_rand(), true)) , 0, 32);
     }
 
     public static function deleteDir($dirPath)
