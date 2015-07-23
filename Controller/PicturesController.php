@@ -54,6 +54,17 @@ class PicturesController extends GalleryAppController
                     $main_id,
                     $filename
                 );
+                
+                $this->Picture->id = $main_id;
+                return new CakeResponse(
+                    array(
+                        'type' => 'application/json',
+                        'status' => 200,
+                        'body' => json_encode(array(
+                            'picture' => $this->Picture->read(null)
+                        ), true)
+                    )
+                );
 
             } catch (ForbiddenException $e) {
                 $response = $e->getMessage();
