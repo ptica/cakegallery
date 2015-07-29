@@ -1,5 +1,7 @@
 (function ($) {
     if ($('.swipebox')) {
-        $('.swipebox').swipebox();
+        $('.swipebox').swipebox({
+            hideBarsDelay : false
+        });
     }
 })(jQuery);
