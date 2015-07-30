@@ -91,7 +91,9 @@ class Picture extends GalleryAppModel
                 $results[$key]['Picture']['styles'] = $this->getChild($val['Picture']['id']);
 
                 # Add relative image path
-                $results[$key]['Picture']['link'] = str_replace($root_url, $relative_url, $val['Picture']['path']);
+                //$results[$key]['Picture']['link'] = str_replace($root_url, $relative_url, $val['Picture']['path']);
+                // ptica: store plain paths in db
+                $results[$key]['Picture']['link'] =  $relative_url  . 'files' . DS . 'gallery'. DS . $val['Picture']['album_id'] . DS . $val['Picture']['path'];
             }
         }
         return $results;
@@ -445,7 +447,7 @@ class Picture extends GalleryAppModel
                 'conditions' => array(
                     'main_id' => $picture_id
                 ),
-                'fields' => array('Picture.path', 'Picture.id', 'Picture.style')
+                'fields' => array('Picture.path', 'Picture.id', 'Picture.style', 'Picture.album_id')
             )
         );
 
