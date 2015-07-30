@@ -149,6 +149,6 @@ $(function () {
  */
 if (typeof __ == 'undefined') {
     var __ = function (msg) {
-        return (typeof App.i18n != 'undefined' ? App.i18n.gettext(msg) : msg);
+        return (typeof App != 'undefined' && typeof App.i18n != 'undefined' ? App.i18n.gettext(msg) : msg);
     };
 }
