@@ -71,6 +71,8 @@ class Picture extends GalleryAppModel
             $file = new File($this->data['Picture']['path']);
             $this->data['Picture']['size'] = $file->size();
         }
+        // ptica: store plain paths in db
+        $this->data['Picture']['path'] = basename($this->data['Picture']['path']);
 
         return true;
     }
