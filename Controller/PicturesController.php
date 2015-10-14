@@ -46,15 +46,22 @@ class PicturesController extends GalleryAppController
 
 
                 # Create extra pictures from the original one
+                # wanted styles can be reduced by enumerating them in the $_POST['styles']
+                $wanted_styles = Configure::read('GalleryOptions.Pictures.styles');
+                if (!empty($_POST['styles'])) {
+                    $wanted_styles = array_merge($_POST['styles'],array('medium')); // medium style always - used internally
+                    $wanted_styles = array_intersect_key(Configure::read('GalleryOptions.Pictures.styles'), array_flip($wanted_styles));
+                }
+
                 $this->Picture->createExtraImages(
-                    Configure::read('GalleryOptions.Pictures.styles'),
+                    $wanted_styles,
                     $file['name'],
                     $file['tmp_name'],
                     $album_id,
                     $main_id,
                     $filename
                 );
-                
+
                 $this->Picture->id = $main_id;
                 return new CakeResponse(
                     array(
