@@ -1,5 +1,27 @@
 Dropzone.options.drop = {
     init: function () {
+        this.on("success", function (file, response) {
+            // remember the returned picture id
+            // so we can send sorted ids on queuecomplete
+            var id = response.picture.Picture.id;
+            if (id) {
+                $(file.previewElement).data('id', id);
+            }
+        });
+        this.on("queuecomplete", function () {
+            // upon completition send sorted ids
+            // to retain order inspite of parallelUploads
+            var baseuri = jQuery("body").data("plugin-base-url");
+            var sorted = $('.dropzone .dz-preview').map(function(i,e){ return $(e).data('id'); }).toArray().join(',');
+            $.post(baseuri + '/pictures/sort', {
+                order: sorted
+            }, function (response) {
+                $(".alert-success").fadeIn(600).html(__('Order Saved!'));
+                window.setTimeout(function () {
+                    $(".alert-success").fadeOut(600)
+                }, 2000);
+            });
+        });
         this.on("addedfile", function (file) {
 
             // Create the remove button

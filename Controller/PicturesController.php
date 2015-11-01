@@ -54,7 +54,7 @@ class PicturesController extends GalleryAppController
                     $main_id,
                     $filename
                 );
-                
+
                 $this->Picture->id = $main_id;
                 return new CakeResponse(
                     array(
@@ -99,7 +99,24 @@ class PicturesController extends GalleryAppController
     {
         if ($this->request->is('post')) {
             $order = explode(",", $_POST['order']);
-            $i = 1;
+            // sort action is used
+            // a) upon sort
+            // b) upon additional uploads into an album
+            // we sort new arrivals to the end
+            // so additional uploads appear at the end during b)
+            $album_id = $this->Picture->find('first', array(
+                'conditions'=>array('Picture.id'=>$order[0]),
+                'fields'=>array('Album.id')
+            ))['Album']['id'];
+
+            $db_count = $this->Picture->find('count', array(
+                'conditions'=>array(
+                    'Picture.album_id'=>$album_id,
+                    'Picture.style'=>'full'
+                )
+            ));
+
+            $i = $db_count - count($order) + 1;
             foreach ($order as $photo) {
                 $this->Picture->read(null, $photo);
                 $this->Picture->set('order', $i);
